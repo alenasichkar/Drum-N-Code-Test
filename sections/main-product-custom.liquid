@@ -1,0 +1,131 @@
+{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-options.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-form.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'custom-product.js' | asset_url }}" defer="defer"></script>
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign current_media_id = current_variant.featured_media.id -%}
+
+<div class="custom-product-section">
+  <div class="page-width">
+    <div class="custom-product-wrapper">
+      <div class="custom-product-media">
+        {%- for media in product.media -%}
+          <div class="custom-product-media-item"
+               data-media-id="{{ media.id }}"
+               style="{% if media.id != current_media_id %}display: none;{% endif %}">
+            {{ media.preview_image | image_url: width: 1946 | image_tag: loading: lazy }}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="custom-product-content">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'title' -%}
+              <h1 class="custom-product-title" {{ block.shopify_attributes }}>
+                {% if block.settings.title != blank %}
+                  {{ block.settings.title }}
+                {% else %}
+                  {{ product.title | escape }}
+                {% endif %}
+              </h1>
+
+            {%- when 'description' -%}
+              {% if block.settings.description != blank %}
+                <div class="custom-product-description" {{ block.shopify_attributes }}>
+                  {{ block.settings.description }}
+                </div>
+              {% endif %}
+
+            {%- when 'price' -%}
+              <div class="custom-product-price" {{ block.shopify_attributes }}>
+                <div class="product-price">
+                  <span class="price">{{ current_variant.price | money }}</span>
+                </div>
+              </div>
+
+            {%- when 'variants' -%}
+              {% render 'custom-product-options',
+                block: block,
+                product: product,
+                current_variant: current_variant
+              %}
+
+            {%- when 'add_to_cart_form' -%}
+              {% render 'custom-product-form',
+                block: block,
+                show_cusomer_form: block.settings.enable_customer_form,
+                current_variant: current_variant
+              %}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Custom Product Template",
+    "tag": "section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "title",
+        "name": "Product Title",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Product title"
+          }
+        ]
+      },
+      {
+        "type": "description",
+        "name": "Product Description",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Product description"
+          }
+        ]
+      },
+      {
+        "type": "price",
+        "name": "Product Price"
+      },
+      {
+        "type": "variants",
+        "name": "Product Variants"
+      },
+      {
+        "type": "add_to_cart_form",
+        "name": "Add to Cart Form",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_customer_form",
+            "label": "Show Customer Form",
+            "default": true
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Product Template",
+        "blocks": [
+          { "type": "title" },
+          { "type": "description" },
+          { "type": "price" },
+          { "type": "variants" },
+          { "type": "add_to_cart_form" }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

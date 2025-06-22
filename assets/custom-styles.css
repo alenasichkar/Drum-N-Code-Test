@@ -1,0 +1,25 @@
+.custom-product-section {
+    padding: 50px 0;
+}
+
+.custom-product-wrapper {
+    display: flex;
+    gap: 40px;
+}
+
+.custom-product-media {
+    width: 60%;
+}
+
+.custom-product-content {
+    width: 40%;
+}
+
+.custom-product-media-item img {
+    width: 100%;
+    height: auto;
+}
+
+.custom-product-title {
+    margin: 0 0 15px;
+}

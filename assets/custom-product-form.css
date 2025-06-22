@@ -1,0 +1,75 @@
+.custom-product-form {
+    padding: 20px 0;
+}
+
+.custom-product-form button[type="submit"] {
+    width: 100%;
+    border: 1px solid;
+    background-color: transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.custom-product-form button {
+    font-size: 16px;
+}
+
+.custom-product-form .shopify-payment-button__button--unbranded {
+    margin-top: 10px;
+    background-color: rgba(var(--color-foreground), 0.75);
+}
+
+.custom-product-customer-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.custom-product-customer-info label {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 19px 12px 6px;
+    font-size: 16px;
+    border: 1px solid;
+    border-radius: 4px;
+    background: white;
+    font-family: inherit;
+    appearance: none;
+    outline: none;
+    outline-offset: 0;
+    box-shadow: none;
+}
+
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    background-color: white;
+    padding: 0 4px;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group select:focus + label,
+.form-group select:not([value=""]) + label {
+    top: 5px;
+    font-size: 12px;
+    transform: none;
+    padding: 0 1px;
+}
+
+

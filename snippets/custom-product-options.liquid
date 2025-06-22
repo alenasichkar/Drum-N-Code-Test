@@ -1,0 +1,48 @@
+<product-options class="custom-product-variants" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+  {%- for option in product.options_with_values -%}
+    {%- assign current_option = 'option' | append: option.position -%}
+
+    <fieldset class="option-selector" data-option="option-{{ forloop.index }}">
+      <legend>{{ option.name }}</legend>
+      <div class="custom-product-options">
+        {%- for value in option.values -%}
+          <div class="option-wrapper" data-value="{{ value }}">
+            {%- capture input_id -%}
+              {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+            {%- endcapture -%}
+            <input
+                    id="{{ input_id }}"
+                    type="radio"
+                    value="{{ value }}"
+                    name="{{ option.name }}"
+                    {% if value.selected %}
+                      checked
+                    {% endif %}
+                    class="custom-product-option-radio"
+            />
+            <label for="{{ input_id }}" class="custom-product-option-label">{{ value }}</label>
+          </div>
+        {%- endfor -%}
+      </div>
+      <select id="option-{{ option.name | handle }}-{{ product.id }}" class="single-option-selector" data-option="option-{{ forloop.index }}" hidden>
+        {% for value in option.values %}
+          <option value="{{ value | escape }}" {% if current_variant[current_option] == value %}selected{% endif %}>{{ value }}</option>
+        {% endfor %}
+      </select>
+    </fieldset>
+
+  {%- endfor -%}
+
+  <script type="application/json" id="custom-product-json">
+    {
+      "product": {{- product | json -}},
+      "formatted": {
+          {%- for variant in product.variants -%}
+              "{{ variant.id }}":{
+                "price": {{ variant.price | money | json }}
+            }{%- unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+    }
+  }
+  </script>
+</product-options>
