@@ -4,15 +4,13 @@
 
 .custom-product-wrapper {
     display: flex;
-    gap: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.custom-product-media {
-    width: 60%;
-}
-
+.custom-product-media,
 .custom-product-content {
-    width: 40%;
+    width: 100%;
 }
 
 .custom-product-media-item img {
@@ -22,4 +20,25 @@
 
 .custom-product-title {
     margin: 0 0 15px;
+}
+
+.custom-product-price {
+    margin-bottom: 15px;
+}
+
+.custom-product-price .price {
+    font-size: 18px;
+}
+
+@media screen and (min-width: 750px) {
+    .custom-product-wrapper {
+        gap: 40px;
+    }
+    .custom-product-media {
+        width: calc((100% - 40px) * 3 / 5);
+    }
+
+    .custom-product-content {
+        width: calc((100% - 40px) * 2 / 5);
+    }
 }

@@ -3,7 +3,7 @@
     {%- assign current_option = 'option' | append: option.position -%}
 
     <fieldset class="option-selector" data-option="option-{{ forloop.index }}">
-      <legend>{{ option.name }}</legend>
+      <legend class="option-label">{{ option.name }}</legend>
       <div class="custom-product-options">
         {%- for value in option.values -%}
           <div class="option-wrapper" data-value="{{ value }}">

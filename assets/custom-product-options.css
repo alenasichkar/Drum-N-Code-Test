@@ -1,6 +1,12 @@
 .custom-product-variants fieldset {
-    padding: 15px 0;
+    padding: 0;
+    margin: 0 0 15px;
     border: none;
+}
+
+.custom-product-variants .option-label {
+    display: block;
+    margin-bottom: 10px;
 }
 
 .custom-product-options {
